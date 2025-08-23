@@ -145,23 +145,21 @@ ggplot(tabla_medias, aes(x = periodo, y = `Lbs. Sold`)) +
 
 # Punto 4. Hallazgos hasta el momento
 
-#Los datos muestran un aumento en las ventas, ingresos y visitas a medida 
-#que avanzan los periodos de promoción. En particular, las libras vendidas alcanzan su 
-#máximo en el periodo de promoción (19026.17), lo que indica que la promoción tuvo 
-#un impacto positivo en las ventas. De manera similar, los ingresos suben significativamente
-#durante la promoción, con un valor de 495063.83. Sin embargo, tras la promoción, las ventas 
-#y los ingresos disminuyen, lo que podría reflejar que los efectos positivos de la promoción no 
-#se mantienen a largo plazo.
+#Los datos muestran una disminución en las ventas y la utilidad a medida 
+#que avanzan los periodos de promoción. El promedio de la utilidad sigue una 
+#tendencia similar, disminuyendo desde el periodo inicial (194923.71) hasta 
+#la promoción (146737.33). Y presentando una disminución considerable en el periodo pos-promoción llegando a los
+#(122498.39), lo que sugiere que los efectos de la promoción no lograron un impacto positivo en 
+#las ganacias. Ni las ventas, ya que el promedio de las ventas en el periodo inicial fue de (591862),
+#y para el periodo de promoción fue de (495063.83), y en el periodo pos-promoción fue de (418160.45). 
 
-#El promedio de la utilidad sigue una tendencia similar, aumentando desde el periodo inicial (194923.71) hasta 
-#la promoción (146737.33). Sin embargo, el periodo pos-promoción muestra una disminución considerable 
-#(122498.39), lo que sugiere que los efectos de la promoción pueden haber tenido un impacto positivo en 
-#las ventas, pero no necesariamente en los márgenes de ganancia. En cuanto a las visitas,
-#hubo una caida en el periodo pre-promoción comparado con el inicial, sin embargo,
-#en el periodo de post-promoción el promedio de las visitas aumentaron significativamente alcamzando los (1381.81),
-#lo que podría indicar un interés sostenido en el sitio web después de la promoción.
-#En resumen, los datos sugieren que las promociones pueden ser efectivas para aumentar las ventas y los ingresos a corto plazo,
-#pero su impacto en la rentabilidad y el tráfico web puede ser más complejo y requiere un análisis más detallado
+#La unicsa variables que muestran un aumento en el periodo pos-promoción fueron las visitas y las visitas únicas.
+#que empezaron en (1305) y(1199) y para el perido pos-promoción llegaron a (1382)(1315) respectivamente.
+#Ahora en cuanto a las libras vendidas, estas disminuyeron levemente del periodo inicial al pre-promoción,
+#y presentaron un aumento favorable en el periodo de promoción pero en el periodo de pos-promoción disminuyeron
+# hasta llegar a un nivel inferior del inicial. En resumen, los datos sugieren que las promociones no 
+#son efectivas para aumentar las ventas y los ingresos a corto plazo, y su impacto en la rentabilidad y el 
+#tráfico web puede ser más complejo y requiere un análisis más detallado.
 
 # Punto 5. Diagrama de dispersión: Revenue vs Lbs. Sold
 ggplot(data, aes(x = `Lbs. Sold`, y = Revenue)) +
