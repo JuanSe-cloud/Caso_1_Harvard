@@ -38,9 +38,72 @@ ggplot(data, aes(x = `Week (2008-2009)`, y = Profit)) +
   scale_x_date(date_breaks = "2 weeks", date_labels = "%Y-%m-%d") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
+# Si la conversión a fecha da NA, usa como carácter
+if (any(is.na(as.Date(data$Week)))) {
+  data$Week <- as.character(data$Week)
+} else {
+  data$Week <- as.Date(data$Week)
+}
+
 # Gráfico 4: Libras vendidas
 ggplot(data, aes(x = `Week (2008-2009)`, y = `Lbs. Sold`)) +
   geom_col(fill = "purple") +
   labs(title = "Libras Vendidas", x = "Semana (Fecha)", y = "Libras") +
   scale_x_date(date_breaks = "2 weeks", date_labels = "%Y-%m-%d") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+
+
+  
+# 2 calculo de estadisticas: visita y resumen financiero
+
+# quitamos comas y símbolos, lo volvemos a hacer por que a veces falla
+weekly_visits$Visits <- as.numeric(gsub(",", "", weekly_visits$Visits))
+weekly_visits$`Unique Visits` <- as.numeric(gsub(",", "", weekly_visits$`Unique Visits`))
+financials$Revenue <- as.numeric(gsub("[$,]", "", financials$Revenue))
+financials$Profit <- as.numeric(gsub("[$,]", "", financials$Profit))
+financials$`Lbs. Sold` <- as.numeric(gsub(",", "", financials$`Lbs. Sold`))
+
+# Unimos los datos por la columna de semana
+data <- left_join(weekly_visits, financials, by = "Week (2008-2009)")
+# Unir los datos por la columna de semana
+data$`Week (2008-2009)` <- as.Date(data$`Week (2008-2009)`, format = "%Y-%m-%d")
+
+# Definimos los periodos por las fechas
+data$periodo <- case_when(
+  data$`Week (2008-2009)` >= as.Date("2008-05-25") & data$`Week (2008-2009)` <= as.Date("2008-07-12") ~ "Inicial",
+  data$`Week (2008-2009)` >= as.Date("2008-07-13") & data$`Week (2008-2009)` <= as.Date("2008-12-13") ~ "Prepromoción",
+  data$`Week (2008-2009)` >= as.Date("2008-12-14") & data$`Week (2008-2009)` <= as.Date("2009-01-24") ~ "Promoción",
+  data$`Week (2008-2009)` >= as.Date("2009-01-25") & data$`Week (2008-2009)` <= as.Date("2009-08-29") ~ "Pospromoción",
+  TRUE ~ NA_character_
+)
+
+# Seleccionamos las variables de interés
+vars <- c("Visits", "Unique Visits", "Revenue", "Profit", "Lbs. Sold")
+
+# Calculo de estadísticas resumidas por período y variable
+resumen <- data %>%
+  select(periodo, all_of(vars)) %>%
+  pivot_longer(cols = all_of(vars), names_to = "variable", values_to = "valor") %>%
+  group_by(periodo, variable) %>%
+  summarise(
+    media = mean(valor, na.rm = TRUE),
+    mediana = median(valor, na.rm = TRUE),
+    sd = sd(valor, na.rm = TRUE),
+    minimo = min(valor, na.rm = TRUE),
+    maximo = max(valor, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  arrange(periodo, variable)
+
+# Crear una tabla por cada periodo
+resumen_inicial <- resumen %>% filter(periodo == "Inicial")
+resumen_prepromocion <- resumen %>% filter(periodo == "Prepromoción")
+resumen_promocion <- resumen %>% filter(periodo == "Promoción")
+resumen_pospromocion <- resumen %>% filter(periodo == "Pospromoción")
+
+# Mostrar cada tabla
+print(resumen_inicial)
+print(resumen_prepromocion)
+print(resumen_promocion)
+print(resumen_pospromocion) 
