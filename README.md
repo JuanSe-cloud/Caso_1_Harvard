@@ -168,3 +168,41 @@ ggplot(data, aes(x = Visits, y = Revenue)) +
 # Coeficiente de correlación
 cor_revenue_visits <- cor(data$Revenue, data$Visits, use = "complete.obs")
 print(paste("Coeficiente de correlación entre Revenue y Visits:", round(cor_revenue_visits, 3)))
+
+# Diagrama de dispersión: Revenue vs Unique Visits
+ggplot(data, aes(x = `Unique Visits`, y = Revenue)) +
+  geom_point(color = "blue") +
+  labs(title = "Relación entre Revenue y Visits",
+       x = "Visitas Unicas",
+       y = "Ingresos ($)") +
+  theme_minimal()
+
+# Coeficiente de correlación
+cor_revenue_unique_visits <- cor(data$Revenue, data$`Unique Visits`, use = "complete.obs")
+print(paste("Coeficiente de correlación entre Revenue y Unique Visits:", round(cor_revenue_unique_visits, 3)))
+
+# Diagrama de dispersión: Lbs. Sold vs Visits
+ggplot(data, aes(x = Visits, y = `Lbs. Sold`)) +
+  geom_point(color = "blue") +
+  labs(title = "Relación entre Revenue y Lbs. Sold",
+       x = "Visitas",
+       y = "Libras Vendidas") +
+  theme_minimal()
+
+# Coeficiente de correlación
+cor_lbs_visits <- cor(data$Visits, data$`Lbs. Sold`, use = "complete.obs")
+print(paste("Coeficiente de correlación entre Lbs. Sold y Visits:", round(cor_lbs_visits, 3)))
+
+# Punto 7. Resumen de los resultados
+
+#Los resultados de las correlaciones asi como en la observación del diagrama
+#de dispersión muestran que hay una relación clara entre los ingresos y las libras de material vendidas,
+# del (0.869). Sin embargo, al momento de ver la relación entre las variables 
+# de Visitas e Ingresos, en el diagrama de dispersión no se ve ningun tipo de tendencia,
+#y esta posee una correlación negativa del (-0.059) lo , en general, un aumento en las visitas
+# no está asociado de manera significativa con un aumento en los ingresos, 
+#y podría incluso haber una ligera tendencia a la disminución de los ingresos, similarmente ocurre
+#con las variables de visitas unicas que presentan una correlación del (0.069). 
+#Finalmente, la relación entre las visitas y las libras vendidas también es débilmente negativa (-0.047),
+#la relación entre ambos variables es prácticamente nula, lo que sugiere que otros 
+#factores más allá del número de visitas de la página pueden influir en los ingresos y las ventas de libras.
