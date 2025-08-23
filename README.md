@@ -1,6 +1,6 @@
 # Caso_1_Harvard
 
-#1
+# Punto 1. Visualizaciones iniciales
 library(tidyverse)
 
 weekly_visits <- read_csv("Weekly Visits.csv")
@@ -56,7 +56,7 @@ ggplot(data, aes(x = `Week (2008-2009)`, y = `Lbs. Sold`)) +
 
 
   
-# 2 calculo de estadisticas: visita y resumen financiero
+# Punto 2. calculo de estadisticas: visita y resumen financiero
 
 # quitamos comas y símbolos, lo volvemos a hacer por que a veces falla
 weekly_visits$Visits <- as.numeric(gsub(",", "", weekly_visits$Visits))
@@ -109,7 +109,7 @@ print(resumen_prepromocion)
 print(resumen_promocion)
 print(resumen_pospromocion) 
 
-#3
+# Punto 3. Visualizaciones adicionales
 # tabla resumen solo con medias por periodo y variable
 tabla_medias <- resumen %>%
   select(periodo, variable, media) %>%
@@ -141,13 +141,11 @@ ggplot(tabla_medias, aes(x = periodo, y = Profit)) +
 # Gráfico de columnas: libras vendidas promedio por periodo
 ggplot(tabla_medias, aes(x = periodo, y = `Lbs. Sold`)) +
   geom_col(fill = "brown") +
-  labs(title = "Libras Vendidas Promedio por Periodo", x = "Periodo", y = "Libras Promedio")
+  labs(title = "Libras Vendidas Promedio por Periodo", x = "Periodo", y = "Libras Promedio")# 4 Hallazgos hasta el momento
 
-# 4 Hallazgos hasta el momento
+# Punto 4. Hallazgos hasta el momento
 
-# 5 Relaciones entre variables
-
-# Diagrama de dispersión: Revenue vs Lbs. Sold
+# Punto 5. Diagrama de dispersión: Revenue vs Lbs. Sold
 ggplot(data, aes(x = `Lbs. Sold`, y = Revenue)) +
   geom_point(color = "darkorange") +
   labs(title = "Relación entre Revenue y Lbs. Sold",
@@ -158,3 +156,15 @@ ggplot(data, aes(x = `Lbs. Sold`, y = Revenue)) +
 # Coeficiente de correlación
 cor_revenue_lbs <- cor(data$Revenue, data$`Lbs. Sold`, use = "complete.obs")
 print(paste("Coeficiente de correlación entre Revenue y Lbs. Sold:", round(cor_revenue_lbs, 3)))
+
+# Punto 6. Diagrama de dispersión: Revenue vs Visits
+ggplot(data, aes(x = Visits, y = Revenue)) +
+  geom_point(color = "blue") +
+  labs(title = "Relación entre Revenue y Visits",
+       x = "Visitas",
+       y = "Ingresos ($)") +
+  theme_minimal()
+
+# Coeficiente de correlación
+cor_revenue_visits <- cor(data$Revenue, data$Visits, use = "complete.obs")
+print(paste("Coeficiente de correlación entre Revenue y Visits:", round(cor_revenue_visits, 3)))
