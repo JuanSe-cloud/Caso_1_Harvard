@@ -142,3 +142,19 @@ ggplot(tabla_medias, aes(x = periodo, y = Profit)) +
 ggplot(tabla_medias, aes(x = periodo, y = `Lbs. Sold`)) +
   geom_col(fill = "brown") +
   labs(title = "Libras Vendidas Promedio por Periodo", x = "Periodo", y = "Libras Promedio")
+
+# 4 Hallazgos hasta el momento
+
+# 5 Relaciones entre variables
+
+# Diagrama de dispersión: Revenue vs Lbs. Sold
+ggplot(data, aes(x = `Lbs. Sold`, y = Revenue)) +
+  geom_point(color = "darkorange") +
+  labs(title = "Relación entre Revenue y Lbs. Sold",
+       x = "Libras Vendidas",
+       y = "Ingresos ($)") +
+  theme_minimal()
+
+# Coeficiente de correlación
+cor_revenue_lbs <- cor(data$Revenue, data$`Lbs. Sold`, use = "complete.obs")
+print(paste("Coeficiente de correlación entre Revenue y Lbs. Sold:", round(cor_revenue_lbs, 3)))
