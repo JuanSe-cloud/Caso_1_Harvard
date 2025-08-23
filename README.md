@@ -1,5 +1,6 @@
 # Caso_1_Harvard
 
+#1
 library(tidyverse)
 
 weekly_visits <- read_csv("Weekly Visits.csv")
@@ -107,3 +108,37 @@ print(resumen_inicial)
 print(resumen_prepromocion)
 print(resumen_promocion)
 print(resumen_pospromocion) 
+
+#3
+# tabla resumen solo con medias por periodo y variable
+tabla_medias <- resumen %>%
+  select(periodo, variable, media) %>%
+  pivot_wider(names_from = variable, values_from = media) %>%
+  arrange(factor(periodo, levels = c("Inicial", "Prepromoción", "Promoción", "Pospromoción")))
+
+print(tabla_medias)
+
+# Gráfico de columnas: visitas promedio por periodo
+ggplot(tabla_medias, aes(x = periodo, y = Visits)) +
+  geom_col(fill = "blue") +
+  labs(title = "Visitas Promedio por Periodo", x = "Periodo", y = "Visitas Promedio")
+
+# Gráfico de columnas: visitas únicas promedio por periodo
+ggplot(tabla_medias, aes(x = periodo, y = `Unique Visits`)) +
+  geom_col(fill = "green") +
+  labs(title = "Visitas Únicas Promedio por Periodo", x = "Periodo", y = "Visitas Únicas Promedio")
+
+# Gráfico de columnas: ingresos promedio por periodo
+ggplot(tabla_medias, aes(x = periodo, y = Revenue)) +
+  geom_col(fill = "orange") +
+  labs(title = "Ingresos Promedio por Periodo", x = "Periodo", y = "Ingresos Promedio")
+
+# Gráfico de columnas: ganancias promedio por periodo
+ggplot(tabla_medias, aes(x = periodo, y = Profit)) +
+  geom_col(fill = "purple") +
+  labs(title = "Ganancias Promedio por Periodo", x = "Periodo", y = "Ganancias Promedio")
+
+# Gráfico de columnas: libras vendidas promedio por periodo
+ggplot(tabla_medias, aes(x = periodo, y = `Lbs. Sold`)) +
+  geom_col(fill = "brown") +
+  labs(title = "Libras Vendidas Promedio por Periodo", x = "Periodo", y = "Libras Promedio")
