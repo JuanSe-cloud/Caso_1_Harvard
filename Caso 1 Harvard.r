@@ -4,11 +4,9 @@
 # Integrantes: Paula Rodriguez, Juan Sebastian Cardenas y Valery Ramirez
 # Fecha:  2025-08-24
 ##############################################################
-
 install.packages("moments")
 library(tidyverse)
 library(readr)
-library(moments)
 library(e1071)
 
 ##############################################################
@@ -159,7 +157,6 @@ ggplot(tabla_medias, aes(x = periodo, y = `Lbs. Sold`)) +
 ##############################################################
 # Punto 4. Hallazgos hasta el momento
 ##############################################################
-
 #Los datos muestran una disminución en las ventas y la utilidad a medida 
 #que avanzan los periodos de promoción. El promedio de la utilidad sigue disminuyó desde el periodo inicial (200233.43) hasta 
 #la promoción (131929.88). Y presentando una disminución considerable en el periodo pos-promoción llegando a los
