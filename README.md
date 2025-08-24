@@ -52,9 +52,6 @@ ggplot(data, aes(x = `Week (2008-2009)`, y = `Lbs. Sold`)) +
   labs(title = "Libras Vendidas", x = "Semana (Fecha)", y = "Libras") +
   scale_x_date(date_breaks = "2 weeks", date_labels = "%Y-%m-%d") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-
-
   
 # Punto 2. calculo de estadisticas: visita y resumen financiero
 
@@ -72,10 +69,10 @@ data$`Week (2008-2009)` <- as.Date(data$`Week (2008-2009)`, format = "%Y-%m-%d")
 
 # Definimos los periodos por las fechas
 data$periodo <- case_when(
-  data$`Week (2008-2009)` >= as.Date("2008-05-25") & data$`Week (2008-2009)` <= as.Date("2008-07-12") ~ "Inicial",
-  data$`Week (2008-2009)` >= as.Date("2008-07-13") & data$`Week (2008-2009)` <= as.Date("2008-12-13") ~ "Prepromoción",
-  data$`Week (2008-2009)` >= as.Date("2008-12-14") & data$`Week (2008-2009)` <= as.Date("2009-01-24") ~ "Promoción",
-  data$`Week (2008-2009)` >= as.Date("2009-01-25") & data$`Week (2008-2009)` <= as.Date("2009-08-29") ~ "Pospromoción",
+  data$`Week (2008-2009)` >= as.Date("2008-05-25") & data$`Week (2008-2009)` <= as.Date("2008-08-24") ~ "Inicial",
+  data$`Week (2008-2009)` >= as.Date("2008-08-31") & data$`Week (2008-2009)` <= as.Date("2009-01-18") ~ "Prepromoción",
+  data$`Week (2008-2009)` >= as.Date("2009-01-25") & data$`Week (2008-2009)` <= as.Date("2009-05-17") ~ "Promoción",
+  data$`Week (2008-2009)` >= as.Date("2009-05-24") & data$`Week (2008-2009)` <= as.Date("2009-08-23") ~ "Pospromoción",
   TRUE ~ NA_character_
 )
 
